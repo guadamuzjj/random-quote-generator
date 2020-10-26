@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Quote component match to snapshot 1`] = `
+<div
+  data-testid="quoteItem"
+>
+  <div
+    className="border-l-8 border-yellow-500"
+  >
+    <div
+      className="pl-8 sm:pl-16 xl:pl-24"
+    >
+      <h1
+        className="text-lg md:text-xl lg:text-2xl xl:text-3xl"
+        data-testid="quoteText"
+      >
+        Every science begins as philosophy and ends as art.
+      </h1>
+    </div>
+  </div>
+  <div
+    className="border-l-8 border-transparent"
+  >
+    <a
+      data-testid="authorLink"
+      href="/authors/Will%20Durant"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <div
+        className="flex justify-between items-center px-8 sm:pl-16 xl:pl-24 py-4 mt-12 text-gray-700 group hover:bg-gray-800 hover:text-white"
+      >
+        <div
+          className="flex flex-col"
+        >
+          <span
+            className="text-base md:text-lg lg:text-xl xl:text-xl font-bold"
+            data-testid="quoteAuthor"
+          >
+            Will Durant
+          </span>
+          <span
+            className="text-sm font-medium"
+            data-testid="quoteGenre"
+          >
+            science
+          </span>
+        </div>
+        <div
+          className="hidden group-hover:block"
+        >
+          <svg
+            fill="#fff"
+            height={24}
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"
+            />
+          </svg>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+`;

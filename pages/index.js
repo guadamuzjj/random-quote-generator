@@ -1,48 +1,45 @@
-import Head from 'next/head'
-import styles from './index.module.css'
+import { useEffect, useState } from 'react';
+import { getRandomQuote } from '../services/quotes';
+import Page from '../components/page';
+import Quote from '../components/quote';
+import RefreshIcon from '../components/icons/refresh-icon';
 
-const Home = () => (
-  <div className={styles.container}>
-    <Head>
-      <title>Create Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
+const Home = () => {
+  const [randomQuote, setRandomQuote] = useState();
 
-    <main>
-      <h1 className={styles.title}>
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
+  const fetchQuote = async () => {
+    setRandomQuote(undefined);
+    const quote = await getRandomQuote();
+    setRandomQuote(quote);
+  };
 
-      <p className={styles.description}>
-        Get started by editing <code>pages/index.js</code>
-      </p>
+  useEffect(() => {
+    fetchQuote();
+  }, []);
 
-      <div className={styles.grid}>
-        <a href="https://nextjs.org/docs" className={styles.card}>
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+  const getHeader = () => (
+    <div className="flex justify-end">
+      <button
+        data-testid="getNewQuoteBtn"
+        title="New random quote"
+        className="mr-2 text-right float-right"
+        onClick={fetchQuote}
+      >
+        <RefreshIcon width={24} height={24} />
+      </button>
+    </div>
+  );
 
-        <a href="https://nextjs.org/learn" className={styles.card}>
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
-
-        <a
-          href="https://github.com/vercel/next.js/tree/master/examples"
-          className={styles.card}
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
-
-        <a href="https://vercel.com/import/nextjs" className={styles.card}>
-          <h3>Deploy &rarr;</h3>
-          <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-        </a>
-      </div>
-    </main>
-  </div>
-)
+  return (
+    <Page
+      header={getHeader()}
+    >
+      <Quote
+        featured
+        info={randomQuote}
+      />
+    </Page >
+  )
+}
 
 export default Home
