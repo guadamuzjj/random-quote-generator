@@ -10,5 +10,11 @@ export default ([
     quoteText: 'To say nothing, especially when speaking, is half the art of diplomacy.',
     quoteAuthor: 'Will Durant',
     quoteGenre: 'art',
+  },
+  {
+    _id: "5eb17aadb69dc744b4e71d5c",
+    quoteText: 'Every science begins as philosophy and ends as art.',
+    quoteAuthor: 'Will Durant',
+    quoteGenre: 'art',
   }
 ])

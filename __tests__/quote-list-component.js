@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import QuoteList from '../components/quote-list';
-import testQuotes from '../data/quotes';
+import quotes from '../data/quotes';
 
 describe('Quote list component', () => {
-  const testAuthor = 'John Doe';
+  const testAuthor = 'Will Durant';
+  const testQuotes = quotes.filter(q => q.quoteAuthor === testAuthor);
 
   it('should be rendered', () => {
     render(

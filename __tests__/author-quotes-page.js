@@ -1,39 +1,24 @@
-import React from 'react'
-import { render } from '@testing-library/react'
-import { act } from 'react-dom/test-utils';
+import React from 'react';
+import { render, waitForElement } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import * as nextRouter from 'next/router';
 import AuthorPage from '../pages/authors/[authorName]'
 
-jest.mock('../services/quotes');
-
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      route: '/authors/John%20Doe',
-      pathname: '',
-      query: {
-        authorName: 'John Doe'
-      },
-      asPath: '',
-    };
-  },
+nextRouter.useRouter = jest.fn();
+nextRouter.useRouter.mockImplementation(() => ({
+  query: {
+    authorName: 'Will Durant'
+  }
 }));
 
 describe('Author page', () => {
-  let page;
+  it('should render correctly', async () => {
+    render(<AuthorPage />);
 
-  beforeEach(async () => {
-    await act(async () => {
-      page = render(<AuthorPage />);
-    });
-  });
+    const backButton = await waitForElement(() => screen.getByTestId('backBtn'));
+    const quoteList = await waitForElement(() => screen.getByTestId('quoteList'));
 
-  it('should render the quotes list', async () => {
-    const { getByTestId } = page;
-    expect(getByTestId('quoteList')).toBeDefined();
-  });
-
-  it('should render a button which redirect to home', async () => {
-    const { getByTestId } = page;
-    expect(getByTestId('backBtn')).toHaveAttribute('href', '/');
+    expect(backButton).toHaveAttribute('href', '/');
+    expect(quoteList).toBeInTheDocument();
   });
 })

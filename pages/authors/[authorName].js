@@ -7,16 +7,18 @@ import QuoteList from '../../components/quote-list';
 
 const AuthorPage = () => {
   const [quotes, setQuotes] = useState();
-  const { query } = useRouter();
+  const { query: { authorName } } = useRouter();
 
   useEffect(() => {
     const fetchQuotes = async () => {
-      const quotes = await getQuotesByAuthor(query.authorName);
+      const quotes = await getQuotesByAuthor(authorName);
       setQuotes(quotes);
     };
 
-    fetchQuotes();
-  }, [query]);
+    if (authorName) {
+      fetchQuotes();
+    }
+  }, []);
 
   const getHeader = () => (
     <div>
@@ -29,7 +31,7 @@ const AuthorPage = () => {
   return (
     <Page header={getHeader()}>
       <QuoteList
-        author={query.authorName}
+        author={authorName}
         items={quotes} />
     </Page>
   )
