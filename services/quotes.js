@@ -1,7 +1,9 @@
+import fetch from 'cross-fetch';
+
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const randomQuoteEndpoint = `${apiUrl}/quotes/random`;
-const authorQuotesEndpoint = name => `${apiUrl}/authors/${name}`;
+export const authorQuotesEndpoint = name => `${apiUrl}/authors/${name}`;
 
 export async function getRandomQuote() {
   const res = await fetch(randomQuoteEndpoint);
