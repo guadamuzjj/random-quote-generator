@@ -1,26 +1,21 @@
-import React from 'react'
-import { render } from '@testing-library/react'
-import { act } from 'react-dom/test-utils';
-import Index from '../pages/index'
+import React from 'react';
+import { render, waitForElement } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import Index from '../pages/index';
+import quotes from '../data/quotes';
 
-jest.mock('../services/quotes');
 
 describe('Home page', () => {
-  let page;
+  it('should render correctly', async () => {
+    render(<Index />);
 
-  beforeEach(async () => {
-    await act(async () => {
-      page = render(<Index />);
-    });
-  });
+    const randomQuote = await waitForElement(() => screen.getByTestId('quoteText'));
+    const newQuoteBtn = await waitForElement(() => screen.getByTestId('getNewQuoteBtn'));
 
-  it('should render the random quote', async () => {
-    const { getByTestId } = page;
-    expect(getByTestId('quoteText')).toBeDefined();
-  });
+    expect(newQuoteBtn).toBeInTheDocument();
+    expect(randomQuote).toBeInTheDocument();
 
-  it('should render a button to get a new random quote', async () => {
-    const { getByTestId } = page;
-    expect(getByTestId('getNewQuoteBtn')).toBeDefined();
+    const [mockQuote] = quotes; // See handlers
+    expect(randomQuote).toHaveTextContent(mockQuote.quoteText);
   });
 })
