@@ -7,8 +7,8 @@ export const authorQuotesEndpoint = name => `${apiUrl}/authors/${name}`;
 
 export async function getRandomQuote() {
   const res = await fetch(randomQuoteEndpoint);
-  const { quote } = await res.json();
-  return quote;
+  const { data } = await res.json();
+  return data[0];
 }
 
 export async function getQuotesByAuthor(name) {
